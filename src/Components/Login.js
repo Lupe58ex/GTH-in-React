@@ -27,35 +27,14 @@ class Login extends Component {
     onSubmit(e)
     {
         e.preventDefault();
-        const User = {
+        const user = {
             email: this.state.email,
             password: this.state.password
         }
-        axios.post('http://localhost:8000/api/register',User)
+        axios.post('http://localhost:8000/api/register',user)
         .then(res=>console.Login(res.data));
     }
-    /*handleEmail(text){
-        this.setState({email:text.target.value})
-    }
-    handlePassword(text){
-        this.setState({password:text.target.value})
-    }
-    login(){
-
-        let obj = {}
-        obj.email = this.state.email;
-        obj.password = this.state.password
-
-        fetch('http://localhost:8000/api/login',{
-            header: {
-                'Content-Type': 'application'
-            },
-            method: 'POST',
-            body:JSON.stringify({obj})
-        }).then
-    }
-    */
-
+   
     render(){
         return (
             <div className='App'>
@@ -69,8 +48,7 @@ class Login extends Component {
                     value={this.state.email}
                     onChange={this.onChangeEmail}
                     />
-                    <input 
-                    type='password' 
+                    <input  
                     className='form-control' 
                     id='password' 
                     placeholder='password'
