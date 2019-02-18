@@ -6,7 +6,7 @@ import {
 import "antd/dist/antd.css";
 import '../Styles/Forms.css';
 
-class IdentificationType extends Component { 
+class PhoneOperator extends Component { 
     constructor(){
         super();
         this.onChangeNameLong = this.onChangeNameLong.bind(this);
@@ -14,13 +14,13 @@ class IdentificationType extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.state={
             name_long:'',
-            name_short:'',
+            name_short:''
         }
     }
 
     onChangeNameLong(e){
         this.setState ({
-            name_long: e.target.value,
+            name_long: e.target.value
         })
     }
     onChangeNameShort(e){
@@ -32,25 +32,26 @@ class IdentificationType extends Component {
     onSubmit(e)
     {
         e.preventDefault();
-        const identificationType = {
+        const phoneOperator = {
             name_long: this.state.name_long,
             name_short: this.state.name_short,
         }
-        axios.post('http://localhost:8000/api/identificationType/Store',identificationType)
-        .then(res=>console.IdentificationType(res.data));
+        axios.post('http://localhost:8000/api/phoneOperator/Store',phoneOperator)
+        .then(res=>console.PhoneOperator(res.data));
     }
     
     render(){
         return (
             <div className='App'>
                 <Form onSubmit={this.onSubmit}>
-                <Input type='text' className='form-control' id='name_long' placeholder='Nombre largo' value={this.state.name_long} onChange={this.onChangeNameLong}/>
-                <Input type='text' className='form-control' id='name_short' placeholder='Nombre corto' value={this.state.name_short} onChange={this.onChangeNameShort}/>
-                
-                <button  type='submit' className='btn'>Enviar</button>
+                <div className='form-group'>
+                    <Input type='text' className='form-control' id='name_long' placeholder='Nombre largo' value={this.state.name_long} onChange={this.onChangeNameLong}/>
+                    <Input type='text' className='form-control' id='name_short' placeholder='Nombre corto' value={this.state.name_short} onChange={this.onChangeNameShort}/>
+                </div>
+                <button  type='submit' className='btn'>EnPhoneOperatorr</button>
                 </Form>
             </div>
         );
     }
 }
-export default IdentificationType;
+export default PhoneOperator;

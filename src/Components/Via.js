@@ -9,7 +9,8 @@ import '../Styles/Forms.css';
 class Via extends Component { 
     constructor(){
         super();
-        this.onChangeName = this.onChangeName.bind(this);
+        this.onChangeNameLong = this.onChangeNameLong.bind(this);
+        this.onChangeNameShort = this.onChangeNameShort.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state={
             name_long:'',
@@ -17,9 +18,13 @@ class Via extends Component {
         }
     }
 
-    onChange(e){
+    onChangeNameLong(e){
         this.setState ({
-            name_long: e.target.value,
+            name_long: e.target.value
+        })
+    }
+    onChangeNameShort(e){
+        this.setState ({
             name_short: e.target.value
         })
     }
@@ -40,8 +45,8 @@ class Via extends Component {
             <div className='App'>
                 <Form onSubmit={this.onSubmit}>
                 <div className='form-group'>
-                    <Input type='text' className='form-control' id='name_long' placeholder='Nombre largo' value={this.state.name_long} onChange={this.onChange}/>
-                    <Input type='text' className='form-control' id='name_short' placeholder='Nombre corto' value={this.state.name_short} onChange={this.onChange}/>
+                    <Input type='text' className='form-control' id='name_long' placeholder='Nombre largo' value={this.state.name_long} onChange={this.onChangeNameLong}/>
+                    <Input type='text' className='form-control' id='name_short' placeholder='Nombre corto' value={this.state.name_short} onChange={this.onChangeNameShort}/>
                 </div>
                 <button  type='submit' className='btn'>Enviar</button>
                 </Form>
