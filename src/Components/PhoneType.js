@@ -48,7 +48,7 @@ class PhoneType extends Component {
                     <Input type='text' className='form-control' id='name_long' placeholder='Nombre largo' value={this.state.name_long} onChange={this.onChangeNameLong}/>
                     <Input type='text' className='form-control' id='name_short' placeholder='Nombre corto' value={this.state.name_short} onChange={this.onChangeNameShort}/>
                 </div>
-                <button  type='submit' className='btn'>EnPhoneTyper</button>
+                <button  type='submit' className='btn'>Enviar</button>
                 </Form>
             </div>
         );

@@ -1,82 +1,39 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
+//import * as React from "react";
+import React, { Component }  from 'react';
+import { Select } from "antd";
+import { withFormik } from "formik";
 
-const Area = () => (
-  <div className="app">
-    <h1>
-      Basic{' '}
-      <a href="https://github.com/jaredpalmer/formik" target="_blank" rel="noopener">
-        Formik
-      </a>{' '}
-      Demo
-    </h1>
+import axios from 'axios';
 
-    <Formik
-      initialValues={{ email: '' }}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 500);
-      }}
-      validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email()
-          .required('Required'),
-      })}
-    >
-      {props => {
-        const {
-          values,
-          touched,
-          errors,
-          dirty,
-          isSubmitting,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          handleReset,
-        } = props;
-        return (
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="email" style={{ display: 'block' }}>
-              Email
-            </label>
-            <input
-              id="email"
-              placeholder="Enter your email"
-              type="text"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={
-                errors.email && touched.email ? 'text-input error' : 'text-input'
-              }
-            />
-            {errors.email &&
-              touched.email && <div className="input-feedback">{errors.email}</div>}
+class Area extends Component {
+  handleSelectChange = value => {
+    this.props.setFieldValue("name", value);
+  };
 
-            <button
-              type="button"
-              className="outline"
-              onClick={handleReset}
-              disabled={!dirty || isSubmitting}
-            >
-              Reset
-            </button>
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
+  render() {
+    const { handleSubmit, values } = this.props;
+    return (
+      <form onSubmit={handleSubmit}>
+        <Select
+          name="name"
+          value={values.name}
+          style={{ width: 120 }}
+          onChange={this.handleSelectChange}>
+          <Select.Option value="male">male</Select.Option>
+          <Select.Option value="female">female</Select.Option>
+        </Select>
+        <button  type='submit' className='btn'>EnContractTyper</button>
+      </form>
+    );
+  }
+}
 
-          </form>
-        );
-      }}
-    </Formik>
+export default withFormik({
+  mapPropsToValues: props => ({ name: "" }),
+  handleSubmit: values => {
+    axios.post('http://localhost:8000/api/jobType/Store',values)
+        .then(res=>console.JobType(res.props));
+    console.log(values);
+  }
+})(Area);
 
-  </div>
-);
-
-render(<Area />, document.getElementById('root'));
-export default Area;

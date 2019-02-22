@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import axios from 'axios';
 import {
-    Form,  Input, Button,
+    Form,  Input, Button,Select
   } from 'antd';
 import "antd/dist/antd.css";
 import '../Styles/Forms.css';
@@ -65,8 +65,8 @@ class ContractType extends Component {
                     <Input type='text' className='form-control' id='name_short' placeholder='Nombre corto' value={this.state.name_short} onChange={this.onChangeNameShort}/>
                     <Input type='text' className='form-control' id='name_long' placeholder='Nombre largo' value={this.state.name_long} onChange={this.onChangeNameLong}/>
                     <Select defaultValue={'E'} placeholder="Por favor escoge" loadingclassName='form-control' id='appears_in'  value={this.state.appears_in} onChange={this.onChangeAppearsIn}>
-                    <Option value="E">En colaborador</Option>
-                    <Option value="X">En experiencia laboral</Option>
+                    <Select.Option value="E">En colaborador</Select.Option>
+                    <Select.Option value="X">En experiencia laboral</Select.Option>
                     </Select>
                 </div>
                 <button  type='submit' className='btn'>EnContractTyper</button>

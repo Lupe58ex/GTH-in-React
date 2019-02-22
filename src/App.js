@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import 'antd/dist/antd.css';
 
 import Area from './Components/Area';
 class App extends Component {
