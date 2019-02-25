@@ -1,6 +1,6 @@
 //import * as React from "react";
 import React, { Component }  from 'react';
-import { Table, Divider, Tag } from 'antd';
+import { Table, Divider, Tag, InputNumber,TimePicker } from 'antd';
 import { withFormik } from "formik";
 
 import axios from 'axios';
@@ -11,9 +11,7 @@ class Assistance extends Component {
   };
 
   render() {
-
-    const { editing } = this.state;
-    const {
+    const { handleSubmit,
       editable,
       dataIndex,
       title,
@@ -22,12 +20,21 @@ class Assistance extends Component {
       handleSave,
       ...restProps
     } = this.props;
-
+    const timePicker = {
+      onChange: ( timePicker) => {
+      },
+      getCheckboxProps: record => ({
+        disabled: record.name === 'Disabled User', // Column configuration not to be checked
+        name: record.name,
+      }),
+    };
     const dataSource = [{
-        key: '1',
-        name: 'Mike',
-        age: 32,
-        address: '10 Downing Street'
+        number: '1',
+        employee: 'Mike',
+        start_hour: 32,
+        real_start_hour: '11:50',
+        end_hour: '',
+        description:''
         }, {
         key: '2',
         name: 'John',
@@ -52,6 +59,7 @@ class Assistance extends Component {
         title: 'Hora Entrada Real',
         dataIndex: 'real_start_hour',
         key: 'real_start_hour',
+        render: () => { return <timePicker /> }
         }, {
         title: 'Hora Salida',
         dataIndex: 'end_hour',
@@ -62,17 +70,17 @@ class Assistance extends Component {
         key: 'description',
        
         }];
+
+
     return (
         <form onSubmit={handleSubmit}>
-                <Table  
-                style={{padding: 15}} inputNumber = {inputNumber}
-                bordered
-            dataSource={dataSource} columns={columns} />
+                <Table  style={{padding: 15}}
+                dataSource={dataSource} columns={columns} />
+          <button  type='submit' className='btn'>EnContractTyper</button>
         </form>
         );
     }
 }
-
 export default withFormik({
   mapPropsToValues: props => ({ name: "" }),
   handleSubmit: values => {

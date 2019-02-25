@@ -15,6 +15,8 @@ class Employee extends Component {
         this.onChangeName = this.onChangeName.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state={
+            identificacionType,
+            gender
             /*name:'',
             lastname_father:,
             lastname_mother:,
@@ -142,7 +144,15 @@ class Employee extends Component {
                         <p>Documento de identificación</p>
                     </Col>
                     <Col span={6} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                    <Select
+                        name="identificationType" 
+                        component="select" 
+                        placeholder="Elige el documento de identificacion"
+                        style={{width:120}}>   
+                            <Select.Option value="male">{identificacionType}</Select.Option>
+                            <Select.Option value="female">Female</Select.Option>
+                    
+                    </Select>
                     </Col>
                 
                     <Col span={6}>
