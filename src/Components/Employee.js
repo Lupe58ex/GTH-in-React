@@ -1,10 +1,9 @@
 import React, { Component }  from 'react';
 import axios from 'axios';
 import {
-    Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, 
-    Button, AutoComplete,DatePicker, message, Card
+    Form, Input,  Select, Row, Col, Checkbox, 
+    Button,Card
   } from 'antd';
-import "antd/dist/antd.css";
 import '../Styles/Forms.css';
 
 
@@ -15,8 +14,8 @@ class Employee extends Component {
         this.onChangeName = this.onChangeName.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state={
-            identificacionType,
-            gender
+            identificationTypes : []
+         
             /*name:'',
             lastname_father:,
             lastname_mother:,
@@ -90,7 +89,26 @@ class Employee extends Component {
 
             bank_account',
             student_children*/
-        }
+        };
+    }
+    
+    componentDidMount() {
+        
+        axios.get('http://localhost:8000/api/employee/Create')
+        .then(json => {
+            this.setState({ identificationTypes : json.data.identificationTypes})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        /*
+        axios.get('http://localhost:8000/api/identificationType/Show/1')
+        .then(res => {
+            //console.log(res.data.identificacionTypes)
+        })
+        .catch(err => {
+            console.log(err)
+        })*/
     }
 
     onChangeName(e){
@@ -106,7 +124,8 @@ class Employee extends Component {
             name: this.state.name
         }
         axios.post('http://localhost:8000/api/employee/Store',employee)
-        .then(res=>console.Employee(res.data));
+        .then(res=>console.log(res.data))
+        .catch(err => console.log(err));
     }
     
     render() {
@@ -120,7 +139,7 @@ class Employee extends Component {
                         <p>Nombre: </p>
                     </Col>
                     <Col span={12} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='email' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                 </Row>
                 <Row>
@@ -128,7 +147,7 @@ class Employee extends Component {
                         <p>Apellido Paterno:</p>
                     </Col>
                     <Col span={12} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='email' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                 </Row>
                 <Row>
@@ -136,7 +155,7 @@ class Employee extends Component {
                         <p>Apellido Materno:</p>
                     </Col>
                     <Col span={12} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='email' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                 </Row>
                 <Row>
@@ -145,13 +164,15 @@ class Employee extends Component {
                     </Col>
                     <Col span={6} >
                     <Select
-                        name="identificationType" 
                         component="select" 
                         placeholder="Elige el documento de identificacion"
-                        style={{width:120}}>   
-                            <Select.Option value="male">{identificacionType}</Select.Option>
-                            <Select.Option value="female">Female</Select.Option>
-                    
+                        style={{width:120}}
+                        >                   
+                        {
+                            this.state.identificationTypes.map((Object,id) => {
+                            return <option value={id}>{Object.name_short}</option>}
+                            )
+                        }
                     </Select>
                     </Col>
                 
@@ -159,7 +180,7 @@ class Employee extends Component {
                         <p>Numero de identificación: </p>
                     </Col>
                     <Col span={6} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='email' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                 </Row>
                 <Row>
@@ -167,13 +188,13 @@ class Employee extends Component {
                         <p>Género: </p>
                     </Col>
                     <Col span={6} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='email' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                     <Col span={6}>
                         <p>Fecha de nacimiento: </p>
                     </Col>
                     <Col span={6} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='email' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                 </Row>
                 <Row>
@@ -181,19 +202,19 @@ class Employee extends Component {
                         <p>Distrito: </p>
                     </Col>
                     <Col span={4} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='email' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                     <Col span={4}>
                         <p>Provincia: </p>
                     </Col>
                     <Col span={4} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='email' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                     <Col span={4}>
                         <p>Departamento: </p>
                     </Col>
                     <Col span={4} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='email' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                     
                 </Row>
@@ -202,13 +223,13 @@ class Employee extends Component {
                         <p>Via: </p>
                     </Col>
                     <Col span={4} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='text' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                     <Col span={4}>
                         <p>Dirección: </p>
                     </Col>
                     <Col span={4} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='text' message='The input is not valid E-mail!' required='true' ></Input>
                     </Col>
                 </Row>
                 <Row>
@@ -216,7 +237,7 @@ class Employee extends Component {
                         <p>Referencia de Dirección: </p>
                     </Col>
                     <Col span={12} >
-                        <Input type='email' message='The input is not valid E-mail!' required='true' message='Please input your E-mail!'></Input>
+                        <Input type='text' message='' required='true' ></Input>
                     </Col>
                 </Row>
                 </Form.Item>

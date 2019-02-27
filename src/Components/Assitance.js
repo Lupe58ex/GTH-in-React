@@ -1,8 +1,8 @@
 //import * as React from "react";
 import React, { Component }  from 'react';
-import { Table, Divider, Tag, InputNumber,TimePicker } from 'antd';
+import { Table, Divider, Tag, Input,TimePicker } from 'antd';
 import { withFormik } from "formik";
-
+import moment from 'moment';
 import axios from 'axios';
 
 class Assistance extends Component {
@@ -31,15 +31,10 @@ class Assistance extends Component {
     const dataSource = [{
         number: '1',
         employee: 'Mike',
-        start_hour: 32,
-        real_start_hour: '11:50',
-        end_hour: '',
+        start_hour: '7:30',
+        real_start_hour: '7:30',
+        end_hour: '13:00',
         description:''
-        }, {
-        key: '2',
-        name: 'John',
-        age: 42,
-        address: '10 Downing Street'
         }];
 
         const columns = [{
@@ -59,7 +54,7 @@ class Assistance extends Component {
         title: 'Hora Entrada Real',
         dataIndex: 'real_start_hour',
         key: 'real_start_hour',
-        render: () => { return <timePicker /> }
+        render: (value, row, index) => { return <TimePicker  defaultOpenValue={moment('08:30', 'HH:mm')} format={'HH:mm'}/> }
         }, {
         title: 'Hora Salida',
         dataIndex: 'end_hour',
@@ -68,7 +63,7 @@ class Assistance extends Component {
         title: 'Descripción',
         dataIndex: 'description',
         key: 'description',
-       
+        render: (value, row, index) => { return <Input /> }
         }];
 
 

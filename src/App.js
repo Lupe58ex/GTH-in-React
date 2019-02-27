@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
 
-import Assitance from './Components/Assitance';
+import Employee from './Components/Employee';
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
         </header>
-        <Assitance/>
+        <Employee/>
       </div>
     );
   }
