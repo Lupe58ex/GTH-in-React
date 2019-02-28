@@ -6,9 +6,30 @@ import moment from 'moment';
 import axios from 'axios';
 
 class Assistance extends Component {
+
+  constructor(){
+    super();
+    this.state={
+        employees : []
+     }
+    }
   handleSelectChange = value => {
     this.props.setFieldValue("name", value);
   };
+
+  
+  componentDidMount() {
+        
+    axios.get('http://localhost:8000/api/assistance/Create')
+    .then(json => {
+        this.setState({ employees : json.data.employees})
+        console.log(json.data.employees)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+  }
+
 
   render() {
     const { handleSubmit,
@@ -28,15 +49,6 @@ class Assistance extends Component {
         name: record.name,
       }),
     };
-    const dataSource = [{
-        number: '1',
-        employee: 'Mike',
-        start_hour: '7:30',
-        real_start_hour: '7:30',
-        end_hour: '13:00',
-        description:''
-        }];
-
         const columns = [{
         title: 'Número',
         dataIndex: 'number',
@@ -44,8 +56,8 @@ class Assistance extends Component {
         
         }, {
         title: 'Colaborador',
-        dataIndex: 'employee',
-        key: 'employee',
+        dataIndex: 'name',
+        key:'id'
         }, {
         title: 'Hora Entrada',
         dataIndex: 'start_hour',
@@ -70,7 +82,7 @@ class Assistance extends Component {
     return (
         <form onSubmit={handleSubmit}>
                 <Table  style={{padding: 15}}
-                dataSource={dataSource} columns={columns} />
+                dataSource={this.state.employees} columns={columns} />
           <button  type='submit' className='btn'>EnContractTyper</button>
         </form>
         );
